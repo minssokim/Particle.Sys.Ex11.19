@@ -21,4 +21,15 @@ function draw() {
     particle.update(mouseX, mouseY); // 마우스에 따라 움직임 업데이트
     particle.show(); // 파티클 그리기
   });
+  drawRefraction();
+}
+
+function drawRefraction() {
+  noFill();
+  stroke(255, 50); // 희미한 굴절 효과
+  strokeWeight(2);
+  for (let i = 0; i < 5; i++) {
+    let xOffset = sin(frameCount * 0.01 + i) * 20;
+    ellipse(width / 2 + xOffset, height / 2, 300 - i * 50);
+  }
 }

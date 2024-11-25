@@ -1,5 +1,4 @@
 // A simple Particle class
-
 class Particle {
     constructor(x, y) {
       this.pos = createVector(x, y); // 초기 위치
