@@ -46,8 +46,6 @@ class Particle {
         this.pos.x *= 0.99; 
         this.pos.y *= 0.99;
       
-        // 파도 형태 유지
-        this.pos.y += sin(waveOffset + this.offset) * this.amp * 0.1;
       }
     
     }
