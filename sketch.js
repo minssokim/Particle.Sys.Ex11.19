@@ -14,6 +14,7 @@ function setup() {
   createBubbles();
 }
 
+
 function draw() {
   background(30, 30, 50); // 어두운 배경
 
@@ -49,3 +50,4 @@ function drawBubbles() {
     bubble.show();
   });
 }
+
