@@ -40,7 +40,7 @@ class Particle {
     class Bubble {
         constructor(x, y) {
           this.pos = createVector(x, y);
-          this.size = random(5, 15);
+          this.size = random(1,5);
           this.speed = random(1, 3);
         }
       
