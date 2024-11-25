@@ -1,6 +1,6 @@
 // A simple Particle class
 
-class Particle {
+/*class Particle {
     constructor(position) {
         this.acceleration = createVector(0, 0);
         this.velocity = createVector(random(-1, 1), random(-1, 0));
@@ -9,33 +9,41 @@ class Particle {
         this.w = 2;
     }
 
-    run() {
-        this.update();
-        this.display();
+*/
+
+class Particle {
+    constructor(x, y) {
+      this.pos = createVector(x, y); // 초기 위치
+      this.baseY = y; // 기준 Y 위치
+      this.size = random(5, 15); // 파티클 크기
+      this.color = color(random(50, 150), random(150, 255), random(200, 255), 200); // 색상
+      this.offset = random(0, TWO_PI); // 개별 파티클의 위상 차이
+      this.amp = random(20, 50); // 진폭
+      this.freq = random(0.02, 0.1); // 주파수
     }
 
-    applyForce(force) {
-        this.acceleration.add(force);
+    update(mouseX, mouseY) {
+        // 마우스와의 거리 계산
+        let distance = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+    
+        // 사인파 기반 움직임
+        let wave = sin(waveOffset + this.offset) * this.amp;
+        let attraction = map(distance, 0, width / 2, 50, 0); // 마우스 근처로 끌림
+    
+        // 마우스에 가까울수록 강하게 반응
+        if (distance < width / 2) {
+          this.pos.x += (mouseX - this.pos.x) * 0.02;
+          this.pos.y += (mouseY - this.baseY) * 0.02 + wave;
+        } else {
+          this.pos.y = this.baseY + wave; // 멀리 있으면 기본 파도 움직임
+        }
+      }
+    
+      // 파티클 그리기
+      show() {
+        noStroke();
+        fill(this.color);
+        ellipse(this.pos.x, this.pos.y, this.size);
+      }
     }
-
-    update() {
-        this.velocity.add(this.acceleration);
-        this.position.add(this.velocity);
-        this.lifespan -= 2;
-
-        this.acceleration.set(0, 0);
-    }
-
-    display() {
-        stroke(200, this.lifespan);
-        strokeWeight(2);
-        fill(127, this.lifespan);
-        
-        ellipse(this.position.x, this.position.y, this.w, this.w);
-    }
-
-    isDead() {
-        return this.lifespan < 0;
-    }
-}
-
+    

@@ -4,26 +4,27 @@ let systems = [];
 let g; // gravity
 let wind;
 
+let particles = [];
+let waveOffset = 0;
+
 function setup() {
-  createCanvas(720, 400);
-  // system = new ParticleSystem(createVector(width / 2, 50));
-  g = createVector(0, 0.05);
-  wind = createVector(0.03, -0.01);
-}
+  createCanvas(600, 400);
 
-function draw() {
-  background(51);
-
-  for (let s of systems) {
-    s.addParticle();
-    s.applyGravity(g);
-    s.applyForce(wind);
-    s.run();
+  // 파티클 생성
+  for (let x = 0; x < width; x += 20) {
+    for (let y = 0; y < height; y += 30) {
+      particles.push(new Particle(x, y));
+    }
   }
 }
 
-function mouseClicked() {
-  let mPos = createVector(mouseX, mouseY);
-  let system = new ParticleSystem(mPos);
-  systems.push(system);
+function draw() {
+  background(30, 30, 50); // 어두운 배경
+
+  waveOffset += 0.05; // 전체 파도 움직임
+
+  particles.forEach((particle) => {
+    particle.update(mouseX, mouseY); // 마우스에 따라 움직임 업데이트
+    particle.show(); // 파티클 그리기
+  });
 }
