@@ -1,9 +1,3 @@
-let system;
-let systems = [];
-
-let g; // gravity
-let wind;
-
 let particles = [];
 let waveOffset = 0;
 
