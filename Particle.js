@@ -35,3 +35,22 @@ class Particle {
       }
     }
     
+    class Bubble {
+        constructor(x, y) {
+          this.pos = createVector(x, y);
+          this.size = random(5, 15);
+          this.speed = random(1, 3);
+        }
+      
+        update() {
+          this.pos.y -= this.speed; // 위로 이동
+          if (this.pos.y < 0) this.pos.y = height + random(50); // 화면 위를 넘어가면 재생성
+        }
+      
+        show() {
+          noStroke();
+          fill(255, 150); // 반투명 흰색
+          ellipse(this.pos.x, this.pos.y, this.size);
+        }
+      }
+      

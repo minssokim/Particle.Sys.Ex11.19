@@ -1,5 +1,6 @@
 let particles = [];
 let waveOffset = 0;
+let bubbles = [];
 
 function setup() {
   createCanvas(600, 400);
@@ -10,6 +11,7 @@ function setup() {
       particles.push(new Particle(x, y));
     }
   }
+  createBubbles();
 }
 
 function draw() {
@@ -22,6 +24,7 @@ function draw() {
     particle.show(); // 파티클 그리기
   });
   drawRefraction();
+  drawBubbles();
 }
 
 function drawRefraction() {
@@ -32,4 +35,17 @@ function drawRefraction() {
     let xOffset = sin(frameCount * 0.01 + i) * 20;
     ellipse(width / 2 + xOffset, height / 2, 300 - i * 50);
   }
+}
+
+function createBubbles() {
+  for (let i = 0; i < 20; i++) {
+    bubbles.push(new Bubble(random(width), random(height)));
+  }
+}
+
+function drawBubbles() {
+  bubbles.forEach((bubble) => {
+    bubble.update();
+    bubble.show();
+  });
 }
