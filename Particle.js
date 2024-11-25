@@ -33,20 +33,7 @@ class Particle {
         fill(this.color);
         ellipse(this.pos.x, this.pos.y, this.size);
       }
-      update(mouseX, mouseY) {
-        let distance = dist(this.pos.x, this.pos.y, mouseX, mouseY);
-        let attraction = map(distance, 0, width / 2, 1, 0);
-      
-        if (distance < width / 2) {
-          this.pos.x += (mouseX - this.pos.x) * 0.02 * attraction;
-          this.pos.y += (mouseY - this.pos.y) * 0.02 * attraction;
-        }
-      
-        // 물속처럼 느린 감속
-        this.pos.x *= 0.99; 
-        this.pos.y *= 0.99;
-      
-      }
+    
     
     }
   
