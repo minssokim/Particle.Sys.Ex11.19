@@ -2,6 +2,7 @@ class ParticleSystem {
     constructor(position) {
         this.origin = position.copy();
         this.particles = [];
+        this.emitters=[];
     }
 
     addParticle() {

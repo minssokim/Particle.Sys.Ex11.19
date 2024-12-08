@@ -2,7 +2,7 @@ let system;
 let systems = [];
 
 let g; // gravity
-let wind;
+
 let emitters=[];
 function mouseClicked(){
   emitters.push(new Emitter(mouseX,mouseY));
