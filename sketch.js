@@ -3,6 +3,10 @@ let systems = [];
 
 let g; // gravity
 let wind;
+let emitters=[];
+function mouseClicked(){
+  emitters.push(new Emitter(mouseX,mouseY));
+}
 
 function setup() {
   createCanvas(720, 400);
@@ -13,17 +17,16 @@ function setup() {
 
 function draw() {
   background(51);
+  for (let emitter of emitters){
+    emitter.emit(5);
+    emitter.show();
+    emitter.update();
+  }
 
   for (let s of systems) {
     s.addParticle();
     s.applyGravity(g);
-    s.applyForce(wind);
     s.run();
   }
 }
 
-function mouseClicked() {
-  let mPos = createVector(mouseX, mouseY);
-  let system = new ParticleSystem(mPos);
-  systems.push(system);
-}
