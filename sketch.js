@@ -29,4 +29,8 @@ function draw() {
     s.run();
   }
 }
-
+function mouseClicked() {
+  let mPos = createVector(mouseX, mouseY);
+  let system = new ParticleSystem(mPos);
+  systems.push(system);
+}
