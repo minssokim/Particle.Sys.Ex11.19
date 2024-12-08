@@ -29,3 +29,24 @@ class ParticleSystem {
           }
     }
 }
+class Attractor {
+    constructor() {
+      this.position = createVector(width / 2, height / 2);
+      this.mass = 20;
+    }
+  
+    attract(mover) {
+      let force = p5.Vector.sub(this.position, mover.position);
+      let distance = force.mag();
+      distance = constrain(distance, 5, 25);
+      let strength = (G * this.mass * mover.mass) / (distance * distance);
+      force.setMag(strength);
+      return force;
+    }
+  
+    show() {
+      stroke(0);
+      fill(175, 200);
+      circle(this.position.x, this.position.y, this.mass * 2);
+    }
+  }
