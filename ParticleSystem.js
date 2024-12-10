@@ -1,52 +1,31 @@
 class ParticleSystem {
-    constructor(position) {
-        this.origin = position.copy();
-        this.particles = [];
-        this.emitters=[];
-    }
-
-    addParticle() {
-        this.particles.push(new Particle(this.origin));
-    }
-
-    applyGravity(g) {
-        this.applyForce(g);
-    }
-
-    applyForce(force) {
-        for (let p of this.particles) {
-            p.applyForce(force);
-        }
-    }
-
-    run() {
-        for (let i = this.particles.length-1; i >= 0; i--) {
-            let p = this.particles[i];
-            p.run();
-            if (p.isDead()) {
-              this.particles.splice(i, 1);
-            }
-          }
-    }
-}
-class Attractor {
-    constructor() {
-      this.position = createVector(width / 2, height / 2);
-      this.mass = 20;
-    }
-  
-    attract(mover) {
-      let force = p5.Vector.sub(this.position, mover.position);
-      let distance = force.mag();
-      distance = constrain(distance, 5, 25);
-      let strength = (G * this.mass * mover.mass) / (distance * distance);
-      force.setMag(strength);
-      return force;
-    }
-  
-    show() {
-      stroke(0);
-      fill(175, 200);
-      circle(this.position.x, this.position.y, this.mass * 2);
+  constructor() {
+    this.particles = [];
+    for (let i = 0; i < 200; i++) {
+      this.particles.push(new Particle(random(width), random(height)));
     }
   }
+
+  applyForce(force) {
+    // 모든 파티클에 힘 적용
+    for (let p of this.particles) {
+      p.applyForce(force);
+    }
+  }
+
+  update() {
+    // 모든 파티클 업데이트
+    for (let p of this.particles) {
+      p.update();
+      p.edges();
+    }
+  }
+
+  show() {
+    // 모든 파티클 렌더링
+    for (let p of this.particles) {
+      p.show();
+    }
+  }
+}
+

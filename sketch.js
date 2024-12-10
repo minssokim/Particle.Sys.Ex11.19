@@ -1,43 +1,18 @@
-let system;
-let attractor;
-
-let systems = [];
-
-let g; // gravity
-
-let emitters=[];
-function mouseClicked(){
-  emitters.push(new Emitter(mouseX,mouseY));
-}
+let particleSystem;
 
 function setup() {
-  createCanvas(720, 400);
-  // system = new ParticleSystem(createVector(width / 2, 50));
-  g = createVector(0, 0.05);
-  wind = createVector(0.03, -0.01);
-  attractor = new Attractor();
+  createCanvas(800, 400);
+  particleSystem = new ParticleSystem();
 }
 
 function draw() {
-  background(51);
-  rule()
-  let force = attractor.attract(mover);
-  mover.applyForce(force);
+  background(30, 30, 50, 50); // 투명 배경으로 흔적 남기기
 
-  for (let emitter of emitters){
-    emitter.emit(5);
-    emitter.show();
-    emitter.update();
-  }
+  // 바람 방향 (마우스 위치에 따라 변화)
+  let windForce = createVector(map(mouseX, 0, width, -0.5, 0.5), 0);
 
-  for (let s of systems) {
-    s.addParticle();
-    s.applyGravity(g);
-    s.run();
-  }
-}
-function mouseClicked() {
-  let mPos = createVector(mouseX, mouseY);
-  let system = new ParticleSystem(mPos);
-  systems.push(system);
+  // 파티클 시스템 업데이트 및 렌더링
+  particleSystem.applyForce(windForce);
+  particleSystem.update();
+  particleSystem.show();
 }
